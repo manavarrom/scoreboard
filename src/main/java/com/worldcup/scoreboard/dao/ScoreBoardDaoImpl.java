@@ -1,19 +1,20 @@
 package com.worldcup.scoreboard.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ScoreBoardDaoImpl implements ScoreBoardDao {
+	
+	private final List<Match> liveMatches = new ArrayList<>();
 
 	@Override
 	public List<Match> getLiveMatches() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.liveMatches;
 	}
 
 	@Override
 	public boolean insertMatch(Match match) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.liveMatches.add(match);
 	}
 
 	@Override
