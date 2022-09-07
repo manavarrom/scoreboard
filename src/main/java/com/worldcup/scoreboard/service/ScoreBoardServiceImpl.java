@@ -23,17 +23,24 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 
 	@Override
 	public boolean finishGame(String homeTeam, String awayTeam) {
-		MatchCriteria criteria = new MatchCriteria.Builder().homeTeam(homeTeam)
-				.awayTeam(awayTeam).build();
-
-		Optional<Match> match = this.scoreBoardDao.findMatchByTeams(criteria);
+		Optional<Match> match = this.findMatchByTeams(homeTeam, awayTeam);
 		
 		return match.isPresent() ? this.scoreBoardDao.deleteMatch(match.get()) : false;
 	}
 
 	@Override
 	public boolean updateScore(String homeTeam, String awayTeam, int homeScore, int awayScore) {
-		// TODO Auto-generated method stub
+		Optional<Match> match = this.findMatchByTeams(homeTeam, awayTeam);
+		
+		if(match.isPresent()) {
+			Match updatedMatch = match.get();
+			
+			updatedMatch.setHomeScore(homeScore);
+			updatedMatch.setAwayScore(awayScore);
+			
+			return this.scoreBoardDao.updateMatch(updatedMatch);
+		}
+		
 		return false;
 	}
 
@@ -44,6 +51,13 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 		//TODO sort liveMatcher by total score and last added.
 		
 		return liveMatcher;
+	}
+	
+	private Optional<Match> findMatchByTeams(String homeTeam, String awayTeam){
+		MatchCriteria criteria = new MatchCriteria.Builder().homeTeam(homeTeam)
+															.awayTeam(awayTeam).build();
+
+		return this.scoreBoardDao.findMatchByTeams(criteria);
 	}
 
 }

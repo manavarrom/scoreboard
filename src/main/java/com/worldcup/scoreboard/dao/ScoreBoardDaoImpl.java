@@ -21,8 +21,7 @@ public class ScoreBoardDaoImpl implements ScoreBoardDao {
 
 	@Override
 	public boolean updateMatch(Match match) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override

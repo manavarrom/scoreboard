@@ -30,8 +30,7 @@ public class ScoreBoardControllerImpl implements ScoreBoardController{
 
 	@Override
 	public boolean updateScore(String homeTeam, String awayTeam, int homeScore, int awayScore) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.scoreBoardService.updateScore(homeTeam, awayTeam, homeScore, awayScore);
 	}
 
 	@Override
