@@ -1,5 +1,6 @@
 package com.worldcup.scoreboard.service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,10 @@ import com.worldcup.scoreboard.dao.ScoreBoardDaoImpl;
 public class ScoreBoardServiceImpl implements ScoreBoardService {
 	
 	private final ScoreBoardDao scoreBoardDao;
+	
+	private static final Comparator<Match> BY_TOTAL_SCORE_AND_LAST_ADDED = Comparator.comparing(Match::getTotalScore)
+																				.thenComparing(Match::getCreationTime)
+																				.reversed();
 	
 	public ScoreBoardServiceImpl() {
 		this.scoreBoardDao = new ScoreBoardDaoImpl();
@@ -48,7 +53,7 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 	public List<Match> getSummaryByTotalScore() {
 		List<Match> liveMatcher = this.scoreBoardDao.getLiveMatches();
 		
-		//TODO sort liveMatcher by total score and last added.
+		liveMatcher.sort(BY_TOTAL_SCORE_AND_LAST_ADDED);
 		
 		return liveMatcher;
 	}
