@@ -2,6 +2,8 @@ package com.worldcup.scoreboard.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 public class ScoreBoardDaoImpl implements ScoreBoardDao {
 	
@@ -25,8 +27,24 @@ public class ScoreBoardDaoImpl implements ScoreBoardDao {
 
 	@Override
 	public boolean deleteMatch(Match match) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.liveMatches.remove(match);
+	}
+
+	@Override
+	public Optional<Match> findMatchByTeams(MatchCriteria criteria) {
+		return this.findMatch(m -> m.getHomeTeam().equals(criteria.getHomeTeam()) && 
+									m.getAwayTeam().equals(criteria.getAwayTeam()));
+	}
+	
+	private Optional<Match> findMatch(Predicate<Match> predicate) {
+		
+		for(Match match : this.liveMatches){
+			if(predicate.test(match)) {
+				return Optional.of(match);
+			}
+		}
+		
+		return Optional.empty();
 	}
 
 }

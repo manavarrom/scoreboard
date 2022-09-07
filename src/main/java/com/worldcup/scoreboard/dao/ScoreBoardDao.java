@@ -1,6 +1,7 @@
 package com.worldcup.scoreboard.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ScoreBoardDao {
 	
@@ -11,5 +12,7 @@ public interface ScoreBoardDao {
 	boolean updateMatch(Match match);
 
 	boolean deleteMatch(Match match);
+
+	Optional<Match> findMatchByTeams(MatchCriteria criteria);
 
 }

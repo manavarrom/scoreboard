@@ -25,8 +25,7 @@ public class ScoreBoardControllerImpl implements ScoreBoardController{
 
 	@Override
 	public boolean finishGame(String homeTeam, String awayTeam) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.scoreBoardService.finishGame(homeTeam, awayTeam);
 	}
 
 	@Override

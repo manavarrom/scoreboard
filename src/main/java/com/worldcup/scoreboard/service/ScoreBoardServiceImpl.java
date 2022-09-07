@@ -1,8 +1,10 @@
 package com.worldcup.scoreboard.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.worldcup.scoreboard.dao.Match;
+import com.worldcup.scoreboard.dao.MatchCriteria;
 import com.worldcup.scoreboard.dao.ScoreBoardDao;
 import com.worldcup.scoreboard.dao.ScoreBoardDaoImpl;
 
@@ -21,8 +23,12 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 
 	@Override
 	public boolean finishGame(String homeTeam, String awayTeam) {
-		// TODO Auto-generated method stub
-		return false;
+		MatchCriteria criteria = new MatchCriteria.Builder().homeTeam(homeTeam)
+				.awayTeam(awayTeam).build();
+
+		Optional<Match> match = this.scoreBoardDao.findMatchByTeams(criteria);
+		
+		return match.isPresent() ? this.scoreBoardDao.deleteMatch(match.get()) : false;
 	}
 
 	@Override
