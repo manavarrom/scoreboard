@@ -34,6 +34,12 @@ public class ScoreBoardDaoImpl implements ScoreBoardDao {
 		return this.findMatch(m -> m.getHomeTeam().equals(criteria.getHomeTeam()) && 
 									m.getAwayTeam().equals(criteria.getAwayTeam()));
 	}
+
+	@Override
+	public Optional<Match> findMatchByTeam(String team) {
+		return this.findMatch(m -> m.getHomeTeam().equals(team) || 
+									m.getAwayTeam().equals(team));
+	}
 	
 	private Optional<Match> findMatch(Predicate<Match> predicate) {
 		

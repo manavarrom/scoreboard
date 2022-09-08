@@ -37,8 +37,6 @@ public class AppDemo
     	
     	System.out.println("\nSummary by Total Score:\n");
     	controller.getSummaryByTotalScore().forEach(System.out::println);
-    	
-    
         
     }
 }

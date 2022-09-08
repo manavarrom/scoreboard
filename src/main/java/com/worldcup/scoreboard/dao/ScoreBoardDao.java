@@ -14,5 +14,7 @@ public interface ScoreBoardDao {
 	boolean deleteMatch(Match match);
 
 	Optional<Match> findMatchByTeams(MatchCriteria criteria);
+	
+	Optional<Match> findMatchByTeam(String team);
 
 }
